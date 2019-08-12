@@ -1,0 +1,9 @@
+localStorage.setItem("key", "value");
+
+READING data from localStorage:
+var lastname = localStorage.getItem("key");
+
+REMOVING data from localStorage:
+localStorage.removeItem("key");
+
+=================================
