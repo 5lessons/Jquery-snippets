@@ -1,0 +1,6 @@
+   var index = 0; 
+arr.forEach(myFunction); 
+function myFunction(item, index) 
+{ 
+    console.log(item); 
+}
