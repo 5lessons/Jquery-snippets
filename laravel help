@@ -1,0 +1,183 @@
+https://stackoverflow.com/questions/32954424/laravel-migration-array-type-store-array-in-database-column
+
+https://quickadminpanel.com/blog/list-of-16-artisan-make-commands-with-parameters/
+
+php artisan route:clear
+php artisan config:clear
+php artisan cache:clear
+php artisan optimize:clear
+chmod 777 -R storage bootstrap/cache public
+
+//permission issue fix
+// If your project's directory is owned by root then,
+sudo chown -R <username> path_to_laravel_project_directory
+sudo chown -R beeramvgs /home/vortexappadmin/lmgc.vortexapplabs.com
+
+// Now you can use
+sudo composer dump-autoload
+
+//check variable in view
+{{isset($users["fullname"]) ? $users["fullname"] : ""}}
+
+//Laravel 5.4 create model, controller and migration in single artisan command
+php artisan make:model Todo -mcr
+if you run php artisan make:model --help you can see all the available options
+
+-m, --migration Create a new migration file for the model.
+-c, --controller Create a new controller for the model.
+-r, --resource Indicates if the generated controller should be a resource controller
+
+//create controller
+php artisan make:controller ShowProfile
+
+//create model
+php artisan make:model Photo
+
+//create middleware
+php artisan make:middleware CheckAge
+
+//create view
+php artisan make:view Faqs/index.blade.php
+
+
+//create migration and run 
+php artisan make:migration create_discount_rate_table --create=discount_rate
+php artisan migrate --path=/database/migrations/test/ //for specific folder
+
+//add specific column into table
+php artisan make:migration add_fulfillment_status_to_orders --table="orders"
+php artisan migrate --path=/database/migrations/test/ //for specific folder
+
+//run specific migration
+php artisan migrate --path=/database/migrations/my_migration.php
+
+How to get public folder path in laravel ?
+
+public_path(); // Path of public/
+
+
+How to get base path(Project Root) in laravel ?
+
+base_path(); // Path of application root
+
+
+How to get storage folder path in laravel ?
+
+storage_path(); // Path of storage/
+
+
+How to get app folder path in laravel ?
+
+app_path(); // Path of app/
+
+//adding columns to table
+create a new migration... make:migration add_avatar_to_users
+then
+ Schema::table('users', function (Blueprint $table) {
+            $table->string('avatar')->nullable()->after('password');
+        });
+Note: don't forget your "down" too for rollbacks...
+ Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('avatar');
+        });
+
+ //get logged in user in blade
+ {{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}
+//add multiple column
+php artisan make:migration alter_table_users
+php artisan make:migration add_fulfillment_status_to_orders --table="orders"
+
+//remove public from url
+ Change in Directory structure
+There are also some couple of ways to remove public keyword from URL. See one more way as below
+
+Rename server.php in your Laravel root folder to index.php
+Copy the .htaccess file from /public directory to your Laravel root folder.
+
+// install laravel 
+go to directory where you want to install
+git clone https://github.com/laravel/laravel.git
+sudo composer install
+sudo chmod -R 755 var/www/html/newapp
+sudo chmod -R 777 /var/www/html/newapp/storage
+mv .env.example .env
+php artisan key:generate
+
+//checl if user is logged in view
+@if (Auth::check())
+{!! dd( "USER IS LOGGED IN" ) !!}
+
+@else
+
+{!! dd(" USER IS NOT LOGGED IN ") !!}
+
+@endif
+
+//add logout function in login conttroller
+public function Logout(){
+    auth()->logout();
+
+    session()->flash('message', 'Some goodbye message');
+
+    return redirect('/login');
+  }
+  add in routes
+  Route::post('/logout', 'yoursessioncontroller@logout');
+
+//image size validation 
+In Laravel 5.3, we have a new validation option: image dimensions for image uploads. The validation rule is called dimensions, and you can pass the following parameters to it:
+
+min_width: Images narrower than this pixel width will be rejected
+max_width: Images wider than this pixel width will be rejected
+min_height: Images shorter than this pixel height will be rejected
+max_height: Images taller than this pixel height will be rejected
+width: Images not exactly this pixel width will be rejected
+height: Images not exactly this pixel height will be rejected
+ratio: Images not exactly this ratio (width/height, expressed as "width/height") will be rejected
+$this->validate($request, [
+
+    'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024||dimensions:max_width=400,max_height=400',
+
+]);
+
+
+//  Laravel Database Column Types
+Written by: admin | Date: Tuesday, September 27th, 2016 
+Categories: Laravel • Reference
+Command	Description
+$table->bigIncrements('id');	Incrementing ID (primary key) using a “UNSIGNED BIG INTEGER” equivalent.
+$table->bigInteger('votes');	BIGINT equivalent for the database.
+$table->binary('data');	BLOB equivalent for the database.
+$table->boolean('confirmed');	BOOLEAN equivalent for the database.
+$table->char('name', 4);	CHAR equivalent with a length.
+$table->date('created_at');	DATE equivalent for the database.
+$table->dateTime('created_at');	DATETIME equivalent for the database.
+$table->dateTimeTz('created_at');	DATETIME (with timezone) equivalent for the database.
+$table->decimal('amount', 5, 2);	DECIMAL equivalent with a precision and scale.
+$table->double('column', 15, 8);	DOUBLE equivalent with precision, 15 digits in total and 8 after the decimal point.
+$table->enum('choices', ['foo', 'bar']);	ENUM equivalent for the database.
+$table->float('amount');	FLOAT equivalent for the database.
+$table->increments('id');	Incrementing ID (primary key) using a “UNSIGNED INTEGER” equivalent.
+$table->integer('votes');	INTEGER equivalent for the database.
+$table->ipAddress('visitor');	IP address equivalent for the database.
+$table->json('options');	JSON equivalent for the database.
+$table->jsonb('options');	JSONB equivalent for the database.
+$table->longText('description');	LONGTEXT equivalent for the database.
+$table->macAddress('device');	MAC address equivalent for the database.
+$table->mediumInteger('numbers');	MEDIUMINT equivalent for the database.
+$table->mediumText('description');	MEDIUMTEXT equivalent for the database.
+$table->morphs('taggable');	Adds INTEGER taggable_id and STRINGtaggable_type.
+$table->nullableTimestamps();	Same as timestamps(), except allows NULLs.
+$table->rememberToken();	Adds remember_token as VARCHAR(100) NULL.
+$table->smallInteger('votes');	SMALLINT equivalent for the database.
+$table->softDeletes();	Adds deleted_at column for soft deletes.
+$table->string('email');	VARCHAR equivalent column.
+$table->string('name', 100);	VARCHAR equivalent with a length.
+$table->text('description');	TEXT equivalent for the database.
+$table->time('sunrise');	TIME equivalent for the database.
+$table->timeTz('sunrise');	TIME (with timezone) equivalent for the database.
+$table->tinyInteger('numbers');	TINYINT equivalent for the database.
+$table->timestamp('added_on');	TIMESTAMP equivalent for the database.
+$table->timestampTz('added_on');	TIMESTAMP (with timezone) equivalent for the database.
+$table->timestamps();	Adds created_at and updated_at columns.
+$table->uuid('id');	UUID equivalent for the database.
