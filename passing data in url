@@ -1,0 +1,6 @@
+  Route::get('/candidate-details/{id}','Admin\AdminController@candidateDetails')->name('candidate.details');
+  
+  public function candidateDetails( $id)
+	{
+        echo $id;
+     }
