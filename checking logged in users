@@ -1,0 +1,3 @@
+
+
+auth()->check() // returns true when logged in, false when logged out
