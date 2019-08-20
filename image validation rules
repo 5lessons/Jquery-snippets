@@ -1,0 +1,45 @@
+Laravel 5 provide new image dimensions validation option for image upload. 
+In this validation rules we can set several rules like as listed bellow:
+
+Dimensions Rules:
+
+1)width
+
+2)height
+
+3)min_width
+
+4)min_height
+
+5)max_width
+
+6)max_height
+
+7)ratio
+
+
+
+
+Example 1:
+
+$this->validate($request, [
+    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:width=500,height=500',
+]);
+Example 2:
+
+$this->validate($request, [
+    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=350,min_height=600',
+]);
+
+ 
+Example 3:
+
+$this->validate($request, [
+    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:max_width=350,max_height=600',
+]);
+Example 4:
+
+ Laravel 5.3 Image Upload with Validation example
+$this->validate($request, [
+    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:ratio=3/2',
+]);
