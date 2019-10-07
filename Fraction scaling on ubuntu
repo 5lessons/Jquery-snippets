@@ -1,0 +1,9 @@
+check whether Wayland or X11 is being used
+echo $XDG_SESSION_TYPE
+
+To enable fractional scaling in GNOME 3.32 on Wayland run:
+
+gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+To enable fractional scaling in Ubuntu 19.04 on Xorg run:
+
+gsettings set org.gnome.mutter experimental-features "['x11-randr-fractional-scaling']"
