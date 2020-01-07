@@ -1,0 +1,10 @@
+After you're done processing something in your Controller, insert:
+
+return redirect()->route( 'clients.show' )->with( [ 'id' => $id ] );
+To retrieve the variable 'id' in route 'clients.show', use:
+
+// in PHP
+$id = session()->get( 'id' );
+
+// in Blade
+{{ session()->get( 'id' ) }}
