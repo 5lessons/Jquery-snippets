@@ -1,0 +1,62 @@
+1. Basic permissions setup
+
+Set Magento Permissions:
+cd <your Magento install dir> 
+find . -type f -exec chmod 664 {} \;
+find . -type d -exec chmod 775 {} \;
+find ./var -type d -exec chmod 777 {} \;
+find ./pub/media -type d -exec chmod 777 {} \;
+find ./pub/static -type d -exec chmod 777 {} \;
+chmod 777 ./app/etc
+chmod 644 ./app/etc/*.xml
+
+chown -R owner:group . (including the last point dot, sets owner for all files under current Magento 2 installation) - Make sure you replace <owner>:<group> with your current user and the group that it's in. 
+
+chmod u+x bin/magento (add the execute permissions for bin/magento)  
+
+ 
+
+2. Advanced permissions setup
+
+The following steps detail how to add your Magento file system owner/user in the web server's group on Apache servers. For other web servers or operating systems, you can use the equivalent commands.
+
+1. Check your <your_username>
+
+whoami
+2. Find the web server's user
+
+ps aux | grep apache 
+Usually, the apache user is www-data.
+
+3. Find the web server user's group
+
+groups www-data 
+Replace www-data with your apache user in case your web server user is different.
+
+Usually, both user and the user's group are www-data.
+
+4. Set the file system owner in the web server group (this needs to be done even if the user is root)
+
+sudo usermod -a -G www-data <your_username>
+This is how you add your user to the www-data group.
+
+5. Make sure your user is a member of the web server group
+
+groups <your_username>
+The result should be that <your_username> from Step 1 is now part of multiple groups, including www-data, the web server group.
+
+To complete this point, restart the web server:
+
+Ubuntu: 
+service apache2 restart
+CentOS: 
+service httpd restart
+6. Set ownership and permissions 
+
+Use <web server group> found at Step 3
+
+cd <to your Magento install directory> 
+find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + 
+find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
+sudo chown -R <your_username>:<web server group> .       (including the last dot, sets owner for all files under current M2 installation) 
+chmod u+x bin/magento                     (add the execute permissions for bin/magento)
